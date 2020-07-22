@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Client web socket</title>
+</head>
+<body>
+    <h3>Client test web socket. Click on button</h3>
+    <button onclick="sendtext()">Send text</button>
+    <div id="info"></div>
+    <script>
+        var inf = document.getElementById("info");
+        var socket = new WebSocket("ws://127.0.0.1:9000/Laputa");
+        socket.onopen = function () {
+            inf.innerText = "Connected";
+        };
+
+        socket.onclose = function (event) {
+            if (event.wasClean) {
+                console.log("desconected")
+            } else {
+                alert('Обрыв соединения'); // например, "убит" процесс сервера
+            }
+            alert('Код: ' + event.code + ' причина: ' + event.reason);
+        };
+
+        socket.onmessage = function (event) {
+            inf.innerText = "Получены данные: " + event.data;
+        };
+
+        socket.onerror = function (error) {
+            alert("Ошибка " + error.message);
+        };
+        function sendtext() {
+            socket.send("Привет");
+        }
+    </script>
+</body>
+</html>
