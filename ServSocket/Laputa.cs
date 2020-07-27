@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 
@@ -8,10 +9,11 @@ namespace ServSocket
     {
         protected override Task OnMessage(MessageEventArgs e)
         {
-            string msg = "Hello";
-
-            Send(msg);
-            return OnMessage(e);
+            var task = Task.Factory.StartNew(() =>
+            {
+                Send($"{DateTime.Now}");
+            });
+            return task;
         }
     }
 }
