@@ -15,5 +15,13 @@ namespace ServSocket
             });
             return task;
         }
+
+        protected override Task OnOpen()
+        {
+            var task = Task.Factory.StartNew(() => {
+                Console.WriteLine($"Active connections:{Sessions.Count}");
+            });
+            return task;
+        }
     }
 }
