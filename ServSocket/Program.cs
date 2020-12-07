@@ -14,12 +14,12 @@ namespace ServSocket
     class Program
     {
         static IPAddress serverIp = IPAddress.Any;
-        static int serverPort = 0;
+        static int serverPort = 9000;
         static bool ssl = false;
 
         static void Main(string[] args)
         {
-            var wssv = new WebSocketServer(serverIp,9000);
+            var wssv = new WebSocketServer(serverIp,serverPort);
             wssv.AddWebSocketService<Laputa>("/Laputa");
             wssv.Start();
             Console.ReadKey(true);
