@@ -15,6 +15,7 @@ namespace SocketClient
     public partial class Form1 : Form
     {
         WebSocket ws;
+        delegate string MessageRes();
         public Form1()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace SocketClient
 
         private Task OnError(WebSocketSharp.ErrorEventArgs arg)
         {
-            label1.Text = arg.Message;
+            //label1.Text = arg.Message;
             return Task.FromResult(0);
         }
 
@@ -43,13 +44,13 @@ namespace SocketClient
         private Task OnMessage(MessageEventArgs arg)
         {
            StreamReader sr = new StreamReader(arg.Data);
-            label1.Text = sr.ReadToEnd();
+            label1.Invoke((MessageRes)()=> { });
             return Task.FromResult(0);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ws.Connect().Wait();
+            ws.Connect().Wait();            
         }
 
         private void button2_Click(object sender, EventArgs e)
