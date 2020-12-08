@@ -11,7 +11,7 @@
     <div id="info"></div>
     <script>
         var inf = document.getElementById("info");
-        var socket = new WebSocket("ws://127.0.0.1:9000/Laputa");
+        var socket = new WebSocket("ws://127.0.0.1:9090/Laputa");
         socket.onopen = function () {
             inf.innerText = "Connected";
         };

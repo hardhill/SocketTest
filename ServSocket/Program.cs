@@ -14,7 +14,7 @@ namespace ServSocket
     class Program
     {
         static IPAddress serverIp = IPAddress.Any;
-        static int serverPort = 9000;
+        static int serverPort = 9090;
         static bool ssl = false;
 
         static void Main(string[] args)

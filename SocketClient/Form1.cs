@@ -19,24 +19,27 @@ namespace SocketClient
         public Form1()
         {
             InitializeComponent();
-            ws = new WebSocket("ws://127.0.0.1:9000/Laputa",onError:OnError,onMessage:OnMessage,onClose:OnCloseConnection,onOpen:OnOpenConnection);
-            
+            ws = new WebSocket("ws://127.0.0.1:9090/Laputa",onError:OnError,onMessage:OnMessage,onClose:OnCloseConnection,onOpen:OnOpenConnection);
+
+
         }
 
         private Task OnError(WebSocketSharp.ErrorEventArgs arg)
         {
-            //label1.Text = arg.Message;
+            this.label1.BeginInvoke((MethodInvoker)delegate { this.label1.Text = arg.Message; });
             return Task.FromResult(0);
         }
 
         private Task OnOpenConnection()
         {
+            
             BackColor = Color.LawnGreen;
             return Task.FromResult(0);
         }
 
         private Task OnCloseConnection(CloseEventArgs arg)
         {
+           
             BackColor = Color.White;
             return Task.FromResult(0);
         }
@@ -44,23 +47,25 @@ namespace SocketClient
         private Task OnMessage(MessageEventArgs arg)
         {
            StreamReader sr = new StreamReader(arg.Data);
-            label1.Invoke((MessageRes)()=> { });
+            label1.Invoke((MethodInvoker)delegate { label1.Text = sr.ReadToEnd(); });
             return Task.FromResult(0);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ws.Connect().Wait();            
+            ws.Connect().Wait();
+            timer1.Enabled = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             ws.Close().Wait();
+            timer1.Enabled = false;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (ws != null && ws.ReadyState == WebSocketState.Open) {
+            if (ws != null ) {
                 ws.Send("time");
             }
         }
