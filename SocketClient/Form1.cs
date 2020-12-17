@@ -19,7 +19,7 @@ namespace SocketClient
         public Form1()
         {
             InitializeComponent();
-            ws = new WebSocket("ws://127.0.0.1:9090/Laputa",onError:OnError,onMessage:OnMessage,onClose:OnCloseConnection,onOpen:OnOpenConnection);
+            ws = new WebSocket("ws://127.0.0.1:9189/wsrpa",onError:OnError,onMessage:OnMessage,onClose:OnCloseConnection,onOpen:OnOpenConnection);
 
 
         }
