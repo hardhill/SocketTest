@@ -19,7 +19,7 @@ namespace StompClient
         public Form1()
         {
             InitializeComponent();
-            client = new WebSocket("ws://localhost:9189/wsrpa/websocket");
+            client = new WebSocket("ws://127.0.0.1:9189/wsrpa/websocket");
             client.OnOpen += Client_OnOpen;
             client.OnClose += Client_OnClose;
             client.OnError += Client_OnError;
@@ -67,7 +67,7 @@ namespace StompClient
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var content = new Content() { from = "BotX", message = "Hello World!!" };
+            var content = new Content() {id="1", botip = "ip-address", message = "Hello World!!"};
             var broad = new StompMessage("SEND", JsonConvert.SerializeObject(content));
             broad["content-type"] = "application/json";
             broad["destination"] = "/app/botmessage";

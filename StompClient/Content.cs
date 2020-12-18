@@ -8,7 +8,9 @@ namespace StompClient
 {
     class Content
     {
-        public string from { get; set; }
+        public string id { get; set; }
+        public string botip { get; set; }
         public string message { get; set; }
+        
     }
 }
